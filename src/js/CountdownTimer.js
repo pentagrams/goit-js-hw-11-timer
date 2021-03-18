@@ -2,40 +2,50 @@ import refs from './refs'
 
 class CountdownTimer {
   constructor(params) {
-    this.run(params.targetDate);
-    counter = null;
+    this.targetDate = params.targetDate;
   }
 
 
   step(targetDate) {
     const currentDate = Date.now();
-    let delta = targetDate - currentDate;
-    const counter = {
-      days: Math.floor(delta / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((delta % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-      mins: Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60)),
-      secs: Math.floor((delta % (1000 * 60)) / 1000),
-    };
+    let data = targetDate - currentDate;
+    return data;
+  }
+  
+  
+  getDays() {
+    return this.pad(Math.floor(this.step(this.targetDate) / (1000 * 60 * 60 * 24)));
+  }
+
+  getHours() {
+    return this.pad(Math.floor((this.step(this.targetDate) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+  }
+
+  getMins() {
+    return this.pad(Math.floor((this.step(this.targetDate) % (1000 * 60 * 60)) / (1000 * 60)));
+  }
+
+  getSecs() {
+    return this.pad(Math.floor((this.step(this.targetDate) % (1000 * 60)) / 1000));
   }
 
 
   pad(value) {
       return String(value).padStart(2, '0');
-    };
+  };
 
 
-  padFormat() {
-    refs.days.textContent = pad(counter.days);
-    refs.hours.textContent = pad(counter.hours);
-    refs.mins.textContent = pad(counter.mins);
-    refs.secs.textContent = pad(counter.secs);
+  textFormat() {
+    refs.days.textContent = this.getDays();
+    refs.hours.textContent = this.getHours();
+    refs.mins.textContent = this.getMins();
+    refs.secs.textContent = this.getSecs();
   }
 
 
   startTimer(){
-      step();
-      setInterval(step, 1000);
-    };
+    this.textFormat();
+  };
 }
 
 
