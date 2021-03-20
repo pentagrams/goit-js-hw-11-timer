@@ -2,6 +2,7 @@ import refs from './refs'
 
 class CountdownTimer {
   constructor(params) {
+    this.selector = document.querySelector(params.selector);
     this.targetDate = params.targetDate;
   }
 
@@ -17,6 +18,12 @@ class CountdownTimer {
     return this.pad(Math.floor(this.step(this.targetDate) / (1000 * 60 * 60 * 24)));
   }
 
+
+  
+  
+  getDays() {
+    return this.pad(Math.floor(this.step(this.targetDate) / (1000 * 60 * 60 * 24)));
+  }
   getHours() {
     return this.pad(Math.floor((this.step(this.targetDate) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
   }
@@ -45,7 +52,7 @@ class CountdownTimer {
 
   startTimer(){
     this.textFormat();
-  };
+  }
 }
 
 
